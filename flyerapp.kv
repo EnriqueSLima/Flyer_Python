@@ -1,0 +1,160 @@
+#:kivy 1.0.9
+
+# Root Screen #       
+<FlyerRootScreen>:
+
+    # Box Layout Mobile 360x640 (px) #
+    LoginLayout:
+    # Screens Inrerited #
+        ScreenManager:
+            FlyerLogin:
+            FlyerSignUp:
+            FlyerValidation:
+
+# Layout Style
+<LoginLayout>:
+    orientation: 'vertical'
+    padding: 50
+
+# Logotype
+<FlyerLogo>:
+    id: flyer_logo
+    source: 'images/flyer_icon.png'
+    pos: 70, 320
+    size_hint: .5, .5
+
+# Inputs Styles
+<UserMail>:
+    id: user_mail
+    multiline: False
+    size_hint: 1, .06
+    pos: 0, 280
+
+<UserPass>:
+    id: user_pass
+    multiline: False
+    password: True
+    size_hint: 1, .06
+    pos: 0, 200
+
+<RegisterMail>:
+    id: register_mail
+    multiline: False
+    size_hint: 1, .06
+    pos: 0, 310
+
+<RegisterPass>:
+    id: register_pass
+    multiline: False
+    password: True
+    size_hint: 1, .06
+    pos: 0, 230
+
+<ConfirmPass>:
+    id: register_pass
+    multiline: False
+    password: True
+    size_hint: 1, .06
+    pos: 0, 150
+
+<ValidateMail>:
+    id: validate_mail
+    multiline: False
+    size_hint: 1, .06
+    pos: 0, 200
+
+
+# Buttons Style
+<LogIn_Btn>: # Login Button go to Check Credentials
+    id: login_btn
+    text: "Log In"
+    size_hint: 1, .07
+    pos: 0, 100
+    background_color: [0, 0, 171]
+
+<Register_Btn>: # Register button go to Registration Screen
+    id: register_btn
+    text: "Register"
+    size_hint: 1, .07
+    pos: 0, 30
+    background_color: [0, 0, 171]
+
+<SignUp_Btn>: # Sign Up Button go to Validation Screen
+    id: signup_btn
+    text: "Sign Up"
+    size_hint: 1, .07
+    pos: 0, 30
+    background_color: [0, 0, 171]
+
+<Validate_Btn>: # Validation Button go to Login Screen
+    id: validate_btn
+    text: "Validate"
+    size_hint: 1, .07
+    pos: 0 , 100
+    background_color: [0, 0, 171]
+
+# Screens #
+<FlyerLogin>: # Screen for Login
+    name: 'screen_login'
+
+    FlyerLogo:
+
+    Label:
+        text: 'Email'
+        size_hint: 1, 1.25
+        font_size: 12
+    Label:
+        text: 'Password'
+        size_hint: 1, .95
+        font_size: 12
+    # Inputs Inheritedp
+    UserMail:
+    UserPass:
+    # Buttons Behavior
+    LogIn_Btn:
+        on_press: root.manager.current = 'screen_login'
+    Register_Btn:
+        on_press: root.manager.current = 'screen_signup'
+
+<FlyerSignUp>: # Screen for Sig Up / Register
+    name: 'screen_signup'
+
+    FlyerLogo:
+
+    Label:
+        text: 'Email'
+        size_hint: 1, 1.35
+        font_size: 12
+    Label:
+        text: 'Password'
+        size_hint: 1, 1.05
+        font_size: 12
+    Label:
+        text: 'Confirm Password'
+        size_hint: 1, .75
+        font_size: 12
+    
+    # Inputs Inherited
+    RegisterMail:
+    RegisterPass:
+    ConfirmPass:
+    # Buttons Behavior
+    SignUp_Btn:
+        on_press: root.manager.current = 'screen_validation'
+
+<FlyerValidation>: # Screen for validation of email
+    name: 'screen_validation'
+
+    FlyerLogo:
+
+    Label:
+        text: 'Verification Code'
+        size_hint: 1, 1
+        font_size: 12
+
+    # Inputs Inherited
+    ValidateMail:
+    # Buttons Behavior
+    Validate_Btn:
+        on_press: root.manager.current = 'screen_login'
+
