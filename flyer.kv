@@ -1,20 +1,32 @@
 #:kivy 1.0.9
+#:import MapView kivy.garden.mapview.MapView
 
 <FlyerManager>:
     SignIn:
-        name: 'sign_in'
+        name: 'sign_in_screen'
     SignUp:
-        name: 'sign_up'
+        name: 'sign_up_screen'
+    Validation:
+        name: 'validation_screen'
+    FlyerIndex:
+        name: 'index_screen'
 
+#   Estilizar Inputs e Botões da área de Login.
 <SignIn>:
     BoxLayout:
         orientation: 'vertical'
-        spacing: 50
+        spacing: 70
         padding: 50
+        canvas: 
+            Color:
+                rgba: 0,0,0,0
+            Rectangle:
+                size: self.size
+                pos: self.pos
         Image:
             source: 'images/flyer_icon.png'
             size_hint_y: None
-            height: 150
+            height: 120
         BoxLayout:
             orientation: 'vertical'
             Label:
@@ -35,25 +47,36 @@
         Button:
             text: 'SIGN IN'
             size_hint_y: None
-            height: 40
-            on_release: app.root.current = 'sign_in'
+            height: 50
+            border: 10,10,10,10
+            background_color: [0, 0, 171]
+            on_release: app.root.current = 'index_screen'
         Button:
             text: 'SIGN UP'
             size_hint_y: None
-            height: 40
-            on_release: app.root.current = 'sign_up'
+            height: 50
+            background_color: [0, 0, 171]
+            on_release: app.root.current = 'sign_up_screen'
+
 
 <SignUp>:
     BoxLayout:
         orientation: 'vertical'
-        spacing: 50
+        spacing: 100
         padding: 50
+        canvas: 
+            Color:
+                rgba: 0,0,0,0
+            Rectangle:
+                size: self.size
+                pos: self.pos
         Image:
             source: 'images/flyer_icon.png'
             size_hint_y: None
-            height: 150
+            height: 120
         BoxLayout:
             orientation: 'vertical'
+            spacing: 5
             Label:
                 text: 'E-MAIL'
                 font_size: 12
@@ -80,5 +103,76 @@
         Button:
             text: 'SIGN UP'
             size_hint_y: None
-            height: 40
-            on_release: app.root.current = 'sign_in'
+            height: 50
+            background_color: [0, 0, 171]
+            on_release: app.root.current = 'validation_screen'
+
+
+<Validation>:
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 150
+        padding: 50
+        canvas: 
+            Color:
+                rgba: 0,0,0,0
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        Image:
+            source: 'images/flyer_icon.png'
+            size_hint_y: None
+            height: 120
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: 'INSERT CODE'
+                font_size: 12
+            TextInput:
+                multiline: False
+                size_hint_y: None
+                height: 30
+        Button:
+            text: 'VALIDATE'
+            size_hint_y: None
+            height: 50
+            background_color: [0, 0, 171]
+            on_release: app.root.current = 'sign_in_screen'
+
+
+#   Implementar Botoes de acção
+
+<FlyerIndex>:
+    BoxLayout:
+        orientation: 'vertical'
+        ActionBar:
+            background_color: [0, 0, 171]
+            ActionView:
+                ActionPrevious:
+                    title: 'Flyer'
+                    with_previous: False
+                    app_icon: 'images/flyer_icon.png'
+                    ActionButton:
+                        text: 'Map'
+                    ActionButton:
+                        text: 'List'
+                    ActionButton:
+                        text: 'Search'
+        MapView:
+            lat:  -23.550277777778 
+            lon:  -46.633888888889 
+            zoom: 16
+        ActionBar:
+            background_color: [0, 0, 171]
+            ActionView:
+                ActionPrevious:
+                    with_previous: False
+                    app_icon: ''
+                    ActionButton:
+                        text: 'Home'
+                    ActionButton:
+                        text: 'Promo'
+                    ActionButton:
+                        text: 'Fav'
+                    ActionButton:
+                        text: 'Config'
