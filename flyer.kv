@@ -11,7 +11,11 @@
     FlyerIndex:
         name: 'index_screen'
 
+#  SCREENS FOR LOG_IN
+
 #   Estilizar Inputs e Botões da área de Login.
+#   Criar funções para trocar telas
+
 <SignIn>:
     BoxLayout:
         orientation: 'vertical'
@@ -24,9 +28,9 @@
                 size: self.size
                 pos: self.pos
         Image:
-            source: 'images/flyer_icon.png'
+            source: 'images/logo/flyer_logo.png'
             size_hint_y: None
-            height: 120
+            height: 150
         BoxLayout:
             orientation: 'vertical'
             Label:
@@ -71,9 +75,9 @@
                 size: self.size
                 pos: self.pos
         Image:
-            source: 'images/flyer_icon.png'
+            source: 'images/logo/flyer_logo.png'
             size_hint_y: None
-            height: 120
+            height: 150
         BoxLayout:
             orientation: 'vertical'
             spacing: 5
@@ -101,7 +105,7 @@
                 size_hint_y: None
                 height: 30
         Button:
-            text: 'SIGN UP'
+            text: 'REGISTER'
             size_hint_y: None
             height: 50
             background_color: [0, 0, 171]
@@ -120,9 +124,9 @@
                 size: self.size
                 pos: self.pos
         Image:
-            source: 'images/flyer_icon.png'
+            source: 'images/logo/flyer_logo.png'
             size_hint_y: None
-            height: 120
+            height: 150
         BoxLayout:
             orientation: 'vertical'
             Label:
@@ -138,7 +142,7 @@
             height: 50
             background_color: [0, 0, 171]
             on_release: app.root.current = 'sign_in_screen'
-
+#   INDEX SCREEN - MAIN USE
 
 #   Implementar Botoes de acção
 
@@ -149,15 +153,18 @@
             background_color: [0, 0, 171]
             ActionView:
                 ActionPrevious:
+                    spacing: 30
                     title: 'Flyer'
                     with_previous: False
-                    app_icon: 'images/flyer_icon.png'
+                    app_icon: 'images/logo/flyer_logo.png'
+                    app_icon_width: 40
+                    app_icon_height: 40
                     ActionButton:
-                        text: 'Map'
+                        icon: 'images/icons/round_map_white_36.png'
                     ActionButton:
-                        text: 'List'
+                        icon: 'images/icons/round_list_white_36.png'
                     ActionButton:
-                        text: 'Search'
+                        icon: 'images/icons/round_search_white_36.png'
         MapView:
             lat:  -23.550277777778 
             lon:  -46.633888888889 
@@ -166,13 +173,15 @@
             background_color: [0, 0, 171]
             ActionView:
                 ActionPrevious:
+                    spacing: 40
+                    title:''
                     with_previous: False
-                    app_icon: ''
+                    app_icon: 'images/icons/round_home_white_36.png'
+                    #ActionButton:
+                    #    icon: 'images/icons/round_home_white_36.png'
                     ActionButton:
-                        text: 'Home'
+                        icon: 'images/icons/round_sell_white_36.png'
                     ActionButton:
-                        text: 'Promo'
+                        icon: 'images/icons/round_favorite_white_36.png'
                     ActionButton:
-                        text: 'Fav'
-                    ActionButton:
-                        text: 'Config'
+                        icon: 'images/icons/round_settings_white_36.png'
