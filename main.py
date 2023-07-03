@@ -42,6 +42,19 @@ class Validation(Screen):
         Window.unbind(on_keyboard = self.back)
     pass
 
+class FlyerList(Screen):
+    pass
+class FlyerSearch(Screen):
+    pass
+class FlyerHome(Screen):
+    pass
+class FlyerPromo(Screen):
+    pass
+class FlyerFav(Screen):
+    pass
+class FlyerSettings(Screen):
+    pass
+
 class FlyerIndex(Screen):
     def __init__(self, **kw):
         super(FlyerIndex, self).__init__(**kw)
