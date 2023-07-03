@@ -1,6 +1,7 @@
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy_garden.mapview import MapMarkerPopup
 from kivy.core.window import Window
 
 Window.size = (380, 700)

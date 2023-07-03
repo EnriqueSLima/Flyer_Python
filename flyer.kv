@@ -23,16 +23,16 @@
         padding: 50
         canvas: 
             Color:
-                rgba: 0,0,0,0
+                rgba: .1,.1,.1,1
             Rectangle:
                 size: self.size
                 pos: self.pos
-        Image:
-            source: 'images/logo/flyer_logo.png'
-            size_hint_y: None
-            height: 150
         BoxLayout:
             orientation: 'vertical'
+            Image:
+                source: 'images/logo/flyer_logo.png'
+                size_hint_y: None
+                height: 200
             Label:
                 text: 'E-MAIL'
                 font_size: 12
@@ -52,14 +52,13 @@
             text: 'SIGN IN'
             size_hint_y: None
             height: 50
-            border: 10,10,10,10
-            background_color: [0, 0, 171]
+            background_color: [0, 0, 10, 1]
             on_release: app.root.current = 'index_screen'
         Button:
             text: 'SIGN UP'
             size_hint_y: None
             height: 50
-            background_color: [0, 0, 171]
+            background_color: [0, 0, 10, 1]
             on_release: app.root.current = 'sign_up_screen'
 
 
@@ -70,17 +69,18 @@
         padding: 50
         canvas: 
             Color:
-                rgba: 0,0,0,0
+                rgba: .1,.1,.1,1
             Rectangle:
                 size: self.size
                 pos: self.pos
-        Image:
-            source: 'images/logo/flyer_logo.png'
-            size_hint_y: None
-            height: 150
+
         BoxLayout:
             orientation: 'vertical'
             spacing: 5
+            Image:
+                source: 'images/logo/flyer_logo.png'
+                size_hint_y: None
+                height: 200
             Label:
                 text: 'E-MAIL'
                 font_size: 12
@@ -108,7 +108,7 @@
             text: 'REGISTER'
             size_hint_y: None
             height: 50
-            background_color: [0, 0, 171]
+            background_color: [0, 0, 10, 1]
             on_release: app.root.current = 'validation_screen'
 
 
@@ -119,16 +119,17 @@
         padding: 50
         canvas: 
             Color:
-                rgba: 0,0,0,0
+                rgba: .1,.1,.1,1
             Rectangle:
                 size: self.size
                 pos: self.pos
-        Image:
-            source: 'images/logo/flyer_logo.png'
-            size_hint_y: None
-            height: 150
+
         BoxLayout:
             orientation: 'vertical'
+            Image:
+                source: 'images/logo/flyer_logo.png'
+                size_hint_y: None
+                height: 200
             Label:
                 text: 'INSERT CODE'
                 font_size: 12
@@ -140,7 +141,7 @@
             text: 'VALIDATE'
             size_hint_y: None
             height: 50
-            background_color: [0, 0, 171]
+            background_color: [0, 0, 10, 1]
             on_release: app.root.current = 'sign_in_screen'
 #   INDEX SCREEN - MAIN USE
 
@@ -166,9 +167,15 @@
                     ActionButton:
                         icon: 'images/icons/round_search_white_36.png'
         MapView:
+            id: 'mapflyer'
             lat:  -23.550277777778 
             lon:  -46.633888888889 
             zoom: 16
+            double_tap_down: True
+            MapMarkerPopup:
+                source: 'images/icons/marker_icon.png'
+                lat:  -23.550277777778
+                lon:  -46.633888888889
         ActionBar:
             background_color: [0, 0, 171]
             ActionView:
