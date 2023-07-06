@@ -1,6 +1,7 @@
 #:kivy 1.0.9
 #:import MapView kivy.garden.mapview.MapView
 
+#   Main Screen Manager
 <FlyerManager>:
     SignIn:
         name: 'sign_in_screen'
@@ -10,24 +11,8 @@
         name: 'validation_screen'
     FlyerIndex:
         name: 'index_screen'
-    FlyerList:
-        name: 'list_screen'
-    FlyerSearch:
-        name: 'search_screen'
-    FlyerHome:
-        name: 'home_screen'
-    FlyerPromo:
-        name: 'promo_screen'
-    FlyerFav:
-        name: 'favorite_screen'
-    FlyerSettings:
-        name: 'settings_screen'
-
 
 #  SCREENS FOR LOG_IN
-
-#   Estilizar Inputs e Botões da área de Login.
-#   Criar funções para trocar telas
 
 <SignIn>:
     BoxLayout:
@@ -49,6 +34,7 @@
             Label:
                 text: 'E-MAIL'
                 font_size: 12
+                bold: True
             TextInput:
                 multiline: False
                 size_hint_y: None
@@ -56,22 +42,17 @@
             Label:
                 text: 'PASSWORD'
                 font_size: 12
+                bold: True
             TextInput:
                 multiline: False
                 password: True
                 size_hint_y: None
                 height: 30
-        Button:
+        BeforeButton:
             text: 'SIGN IN'
-            size_hint_y: None
-            height: 50
-            background_color: [0, 0, 10, 1]
             on_release: app.root.current = 'index_screen'
-        Button:
+        BeforeButton:
             text: 'SIGN UP'
-            size_hint_y: None
-            height: 50
-            background_color: [0, 0, 10, 1]
             on_release: app.root.current = 'sign_up_screen'
 
 
@@ -86,7 +67,6 @@
             Rectangle:
                 size: self.size
                 pos: self.pos
-
         BoxLayout:
             orientation: 'vertical'
             spacing: 5
@@ -97,6 +77,7 @@
             Label:
                 text: 'E-MAIL'
                 font_size: 12
+                bold: True
             TextInput:
                 multiline: False
                 size_hint_y: None
@@ -104,6 +85,7 @@
             Label:
                 text: 'PASSWORD'
                 font_size: 12
+                bold: True
             TextInput:
                 multiline: False
                 password: True
@@ -112,16 +94,14 @@
             Label:
                 text: 'CONFIRM PASSWORD'
                 font_size: 12
+                bold: True
             TextInput:
                 multiline: False
                 password: True
                 size_hint_y: None
                 height: 30
-        Button:
+        BeforeButton:
             text: 'REGISTER'
-            size_hint_y: None
-            height: 50
-            background_color: [0, 0, 10, 1]
             on_release: app.root.current = 'validation_screen'
 
 
@@ -136,7 +116,6 @@
             Rectangle:
                 size: self.size
                 pos: self.pos
-
         BoxLayout:
             orientation: 'vertical'
             Image:
@@ -146,43 +125,83 @@
             Label:
                 text: 'INSERT CODE'
                 font_size: 12
+                bold: True
             TextInput:
                 multiline: False
                 size_hint_y: None
                 height: 30
-        Button:
+        BeforeButton:
             text: 'VALIDATE'
-            size_hint_y: None
-            height: 50
-            background_color: [0, 0, 10, 1]
             on_release: app.root.current = 'sign_in_screen'
-#   INDEX SCREEN - MAIN USE
 
-#   Implementar Botoes de acção
+
+#   BUTTON FOR LOG_IN SCREENS
+
+<BeforeButton@Button>:
+    bold: True
+    size_hint_y: None
+    height: 50
+    background_color: [0, 0, 10, 1]
+
+#   INDEX SCREEN - MAIN USE
 
 <FlyerIndex>:
     BoxLayout:
         orientation: 'vertical'
         ActionBar:
-            background_color: [0, 0, 171]
+            index: 0
             ActionView:
                 ActionPrevious:
                     spacing: 30
+                    padding: 5
                     title: 'Flyer'
                     with_previous: False
                     app_icon: 'images/logo/flyer_logo.png'
                     on_release: app.root.current = 'index_screen'
                     app_icon_width: 40
                     app_icon_height: 40
+                    background_color: [.1,.1,.1,1]
                     ActionButton:
                         icon: 'images/icons/round_map_white_36.png'
-                        on_release: app.root.current = 'index_screen'
+                        on_release: root.changeLayout()
                     ActionButton:
                         icon: 'images/icons/round_list_white_36.png'
-                        on_release: app.root.current = 'list_screen'
                     ActionButton:
                         icon: 'images/icons/round_search_white_36.png'
-                        on_release: app.root.current = 'search_screen'
+        Widget:
+            id: 'main'
+
+        BoxLayout:
+            canvas:
+                Color:
+                    rgba: (.15,.15,.15,1)
+                Rectangle:
+                    size: self.size
+                    pos:self.pos
+            spacing: 85
+            padding: 10
+            size_hint_y: None
+            height: 45
+            FooterButton:
+                background_normal:'images/icons/round_home_white_36.png'
+            FooterButton:
+                background_normal: 'images/icons/round_sell_white_36.png'
+            FooterButton:
+                background_normal: 'images/icons/round_favorite_white_36.png'
+            FooterButton:
+                background_normal: 'images/icons/round_settings_white_36.png'
+
+<FooterButton@Button>:
+    size_hint_x: None
+    width: self.height
+    border: (0,0,0,0)
+
+###     LAYOUTS 
+
+<FlyerMap>:
+    id: 'mapflyer'
+    BoxLayout:
+        orientation: 'vertical'
         MapView:
             id: 'mapflyer'
             lat:  -23.550277777778 
@@ -192,295 +211,46 @@
                 source: 'images/icons/marker_icon.png'
                 lat:  -23.550277777778
                 lon:  -46.633888888889
-        ActionBar:
-            background_color: [0, 0, 171]
-            ActionView:
-                ActionPrevious:
-                    spacing: 40
-                    title:''
-                    with_previous: False
-                    app_icon: 'images/icons/round_home_white_36.png'
-                    on_release: app.root.current = 'home_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_sell_white_36.png'
-                        on_release: app.root.current = 'promo_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_favorite_white_36.png'
-                        on_release: app.root.current = 'favorite_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_settings_white_36.png'
-                        on_release: app.root.current = 'settings_screen'
-
-
-###     SCREENS AFTER
 
 <FlyerList>:
     BoxLayout:
         orientation: 'vertical'
-        ActionBar:
-            background_color: [0, 0, 171]
-            ActionView:
-                ActionPrevious:
-                    spacing: 30
-                    title: 'Flyer'
-                    with_previous: False
-                    app_icon: 'images/logo/flyer_logo.png'
-                    on_release: app.root.current = 'index_screen'
-                    app_icon_width: 40
-                    app_icon_height: 40
-                    ActionButton:
-                        icon: 'images/icons/round_map_white_36.png'
-                        on_release: app.root.current = 'index_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_list_white_36.png'
-                        on_release: app.root.current = 'list_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_search_white_36.png'
-                        on_release: app.root.current = 'search_screen'
         Label:
             text: 'List Page'
         ActionBar:
-            background_color: [0, 0, 171]
-            ActionView:
-                ActionPrevious:
-                    spacing: 40
-                    title:''
-                    with_previous: False
-                    app_icon: 'images/icons/round_home_white_36.png'
-                    on_release: app.root.current = 'home_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_sell_white_36.png'
-                        on_release: app.root.current = 'promo_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_favorite_white_36.png'
-                        on_release: app.root.current = 'favorite_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_settings_white_36.png'
-                        on_release: app.root.current = 'settings_screen'
-
 
 <FlyerSearch>:
     BoxLayout:
         orientation: 'vertical'
-        ActionBar:
-            background_color: [0, 0, 171]
-            ActionView:
-                ActionPrevious:
-                    spacing: 30
-                    title: 'Flyer'
-                    with_previous: False
-                    app_icon: 'images/logo/flyer_logo.png'
-                    on_release: app.root.current = 'index_screen'
-                    app_icon_width: 40
-                    app_icon_height: 40
-                    ActionButton:
-                        icon: 'images/icons/round_map_white_36.png'
-                        on_release: app.root.current = 'index_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_list_white_36.png'
-                        on_release: app.root.current = 'list_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_search_white_36.png'
-                        on_release: app.root.current = 'search_screen'
         Label:
             text: 'Search Page'
-        ActionBar:
-            background_color: [0, 0, 171]
-            ActionView:
-                ActionPrevious:
-                    spacing: 40
-                    title:''
-                    with_previous: False
-                    app_icon: 'images/icons/round_home_white_36.png'
-                    on_release: app.root.current = 'home_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_sell_white_36.png'
-                        on_release: app.root.current = 'promo_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_favorite_white_36.png'
-                        on_release: app.root.current = 'favorite_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_settings_white_36.png'
-                        on_release: app.root.current = 'settings_screen'
-
 
 <FlyerHome>:
     BoxLayout:
         orientation: 'vertical'
-        ActionBar:
-            background_color: [0, 0, 171]
-            ActionView:
-                ActionPrevious:
-                    spacing: 30
-                    title: 'Flyer'
-                    with_previous: False
-                    app_icon: 'images/logo/flyer_logo.png'
-                    on_release: app.root.current = 'index_screen'
-                    app_icon_width: 40
-                    app_icon_height: 40
-                    ActionButton:
-                        icon: 'images/icons/round_map_white_36.png'
-                        on_release: app.root.current = 'index_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_list_white_36.png'
-                        on_release: app.root.current = 'list_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_search_white_36.png'
-                        on_release: app.root.current = 'search_screen'
         Label:
             text: 'Home Page'
-        ActionBar:
-            background_color: [0, 0, 171]
-            ActionView:
-                ActionPrevious:
-                    spacing: 40
-                    title:''
-                    with_previous: False
-                    app_icon: 'images/icons/round_home_white_36.png'
-                    on_release: app.root.current = 'home_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_sell_white_36.png'
-                        on_release: app.root.current = 'promo_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_favorite_white_36.png'
-                        on_release: app.root.current = 'favorite_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_settings_white_36.png'
-                        on_release: app.root.current = 'settings_screen'
-
 
 <FlyerPromo>:
     BoxLayout:
         orientation: 'vertical'
-        ActionBar:
-            background_color: [0, 0, 171]
-            ActionView:
-                ActionPrevious:
-                    spacing: 30
-                    title: 'Flyer'
-                    with_previous: False
-                    app_icon: 'images/logo/flyer_logo.png'
-                    on_release: app.root.current = 'index_screen'
-                    app_icon_width: 40
-                    app_icon_height: 40
-                    ActionButton:
-                        icon: 'images/icons/round_map_white_36.png'
-                        on_release: app.root.current = 'index_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_list_white_36.png'
-                        on_release: app.root.current = 'list_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_search_white_36.png'
-                        on_release: app.root.current = 'search_screen'
         Label:
             text: 'Promo Page'
         ActionBar:
-            background_color: [0, 0, 171]
-            ActionView:
-                ActionPrevious:
-                    spacing: 40
-                    title:''
-                    with_previous: False
-                    app_icon: 'images/icons/round_home_white_36.png'
-                    on_release: app.root.current = 'home_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_sell_white_36.png'
-                        on_release: app.root.current = 'promo_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_favorite_white_36.png'
-                        on_release: app.root.current = 'favorite_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_settings_white_36.png'
-                        on_release: app.root.current = 'settings_screen'
 
 <FlyerFav>:
     BoxLayout:
         orientation: 'vertical'
-        ActionBar:
-            background_color: [0, 0, 171]
-            ActionView:
-                ActionPrevious:
-                    spacing: 30
-                    title: 'Flyer'
-                    with_previous: False
-                    app_icon: 'images/logo/flyer_logo.png'
-                    on_release: app.root.current = 'index_screen'
-                    app_icon_width: 40
-                    app_icon_height: 40
-                    ActionButton:
-                        icon: 'images/icons/round_map_white_36.png'
-                        on_release: app.root.current = 'index_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_list_white_36.png'
-                        on_release: app.root.current = 'list_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_search_white_36.png'
-                        on_release: app.root.current = 'search_screen'
         Label:
             text: 'Favorite Page'
         ActionBar:
-            background_color: [0, 0, 171]
-            ActionView:
-                ActionPrevious:
-                    spacing: 40
-                    title:''
-                    with_previous: False
-                    app_icon: 'images/icons/round_home_white_36.png'
-                    on_release: app.root.current = 'home_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_sell_white_36.png'
-                        on_release: app.root.current = 'promo_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_favorite_white_36.png'
-                        on_release: app.root.current = 'favorite_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_settings_white_36.png'
-                        on_release: app.root.current = 'settings_screen'
-
 
 <FlyerSettings>:
     BoxLayout:
         orientation: 'vertical'
-        ActionBar:
-            background_color: [0, 0, 171]
-            ActionView:
-                ActionPrevious:
-                    spacing: 30
-                    title: 'Flyer'
-                    with_previous: False
-                    app_icon: 'images/logo/flyer_logo.png'
-                    on_release: app.root.current = 'index_screen'
-                    app_icon_width: 40
-                    app_icon_height: 40
-                    ActionButton:
-                        icon: 'images/icons/round_map_white_36.png'
-                        on_release: app.root.current = 'index_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_list_white_36.png'
-                        on_release: app.root.current = 'list_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_search_white_36.png'
-                        on_release: app.root.current = 'search_screen'
         Label:
             text: 'Settings Page'
-        ActionBar:
-            background_color: [0, 0, 171]
-            ActionView:
-                ActionPrevious:
-                    spacing: 40
-                    title:''
-                    with_previous: False
-                    app_icon: 'images/icons/round_home_white_36.png'
-                    on_release: app.root.current = 'home_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_sell_white_36.png'
-                        on_release: app.root.current = 'promo_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_favorite_white_36.png'
-                        on_release: app.root.current = 'favorite_screen'
-                    ActionButton:
-                        icon: 'images/icons/round_settings_white_36.png'
-                        on_release: app.root.current = 'settings_screen'
+
 
 
 
