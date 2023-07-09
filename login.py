@@ -1,13 +1,15 @@
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
-from kivy.lang import Builder
 from kivy.core.window import Window
 
 Window.size = (380, 700)
 
+#   Main Screen
+class MainLogin(BoxLayout):
+    pass
 #   Main Screen Manager
-class FlyerManager(ScreenManager):
+class LoginManager(ScreenManager):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
     pass
@@ -27,7 +29,7 @@ class SignUp(Screen):
 
     def back(self, window, key, *args):
         if key == 27: # When ESC is pressed
-            App.get_running_app().root.current = 'sign_in_screen'
+            App.get_running_app().root.ids.main_manager.current = 'sign_in_screen'
             return True
     def on_pre_leave(self, *args): # unbind ESC for previous screen
         Window.unbind(on_keyboard = self.back)
@@ -42,37 +44,14 @@ class Validation(Screen):
 
     def back(self, window, key, *args):
         if key == 27: # When ESC is pressed
-            App.get_running_app().root.current = 'sign_up_screen'
+            App.get_running_app().root.ids.main_manager.current = 'sign_up_screen'
             return True
     def on_pre_leave(self, *args): # unbind ESC for previous screen
         Window.unbind(on_keyboard = self.back)
 
-#   Main Screen
-class FlyerIndex(Screen):
-    def __init__(self, **kw):
-        super().__init__(**kw)
-
-class FlyerContainer(ScreenManager):
-    pass
-class FlyerMap(Screen):
-    pass
-class FlyerList(Screen):
-    pass
-class FlyerSearch(Screen):
-    pass
-class FlyerHome(Screen):
-    pass
-class FlyerPromo(Screen):
-    pass
-class FlyerFav(Screen):
-    pass
-class FlyerSettings(Screen):
-    pass
-
 # Runs Application
-class Main(App):
+class Login(App):
     def build(self):
-        return FlyerManager()
-
+        return MainLogin()
 if __name__ == '__main__':
-    Main().run()
+    Login().run()

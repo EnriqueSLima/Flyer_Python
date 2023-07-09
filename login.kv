@@ -1,0 +1,127 @@
+#:kivy 1.0.9
+
+<MainLogin>:
+    id: main_screen
+    orientation: 'vertical'
+    padding: 50
+    canvas: 
+        Color:
+            rgba: .1,.1,.1,1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    Image:
+        source: 'images/logo/flyer_logo.png'
+        size_hint_y: None
+        height: 200
+
+#   Main Screen Manager
+    LoginManager:
+        id: main_manager
+        SignIn:
+            name: 'sign_in_screen'
+        SignUp:
+            name: 'sign_up_screen'
+        Validation:
+            name: 'validation_screen'
+    
+
+
+#   BUTTON FOR LOG_IN SCREENS
+
+<BeforeButton@Button>:
+    bold: True
+    size_hint_y: None
+    height: 50
+    background_color: [0, 0, 10, 1]
+
+#  SCREENS FOR LOG_IN
+
+<SignIn>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 30
+        Label:
+            text: 'E-MAIL'
+            font_size: 12
+            bold: True
+        TextInput:
+            multiline: False
+            size_hint_y: None
+            height: 30
+        Label:
+            text: 'PASSWORD'
+            font_size: 12
+            bold: True
+        TextInput:
+            multiline: False
+            password: True
+            size_hint_y: None
+            height: 30
+        BeforeButton:
+            text: 'SIGN IN'
+            on_release: 
+                app.root.ids.main_manager.transition.duration = 0.2
+                root.current = 'sign_in_screen'
+        BeforeButton:
+            text: 'SIGN UP'
+            on_release:
+                app.root.ids.main_manager.transition.duration = 0.2
+                app.root.ids.main_manager.current = 'sign_up_screen'
+
+<SignUp>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 30
+        Label:
+            text: 'E-MAIL'
+            font_size: 12
+            bold: True
+        TextInput:
+            multiline: False
+            size_hint_y: None
+            height: 30
+        Label:
+            text: 'PASSWORD'
+            font_size: 12
+            bold: True
+        TextInput:
+            multiline: False
+            password: True
+            size_hint_y: None
+            height: 30
+        Label:
+            text: 'CONFIRM PASSWORD'
+            font_size: 12
+            bold: True
+        TextInput:
+            multiline: False
+            password: True
+            size_hint_y: None
+            height: 30
+        BeforeButton:
+            text: 'REGISTER'
+            on_release: 
+                app.root.ids.main_manager.transition.duration = 0.2
+                app.root.ids.main_manager.current = 'validation_screen'
+
+<Validation>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 30
+        Label:
+            text: 'INSERT CODE'
+            font_size: 12
+            bold: True
+        TextInput:
+            multiline: False
+            size_hint_y: None
+            height: 30
+        BeforeButton:
+            text: 'VALIDATE'
+            on_release: 
+                app.root.ids.main_manager.transition.duration = 0.2
+                app.root.ids.main_manager.current = 'sign_in_screen'

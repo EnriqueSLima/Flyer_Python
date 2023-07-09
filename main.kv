@@ -1,0 +1,291 @@
+#:kivy 1.0.9
+#:import MapView kivy.garden.mapview.MapView
+
+#   Main Screen Manager
+<FlyerManager>:
+    id: 'main_manager'
+    SignIn:
+        name: 'sign_in_screen'
+    SignUp:
+        name: 'sign_up_screen'
+    Validation:
+        name: 'validation_screen'
+    FlyerIndex:
+        name: 'index_screen'
+#   Screens for main container
+<FlyerContainer>:
+    FlyerMap:
+        name: 'map_flyer'
+    FlyerList:
+        name: 'list_flyer'
+    FlyerSearch:
+        name: 'search_flyer'
+    FlyerHome:
+        name: 'home_flyer'
+    FlyerPromo:
+        name: 'promo_flyer'
+    FlyerFav:
+        name: 'fav_flyer'
+    FlyerSettings:
+        name: 'settings_flyer'
+
+#  SCREENS FOR LOG_IN
+<SignIn>:
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 70
+        padding: 50
+        canvas: 
+            Color:
+                rgba: .1,.1,.1,1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        BoxLayout:
+            orientation: 'vertical'
+            Image:
+                source: 'images/logo/flyer_logo.png'
+                size_hint_y: None
+                height: 200
+            Label:
+                text: 'E-MAIL'
+                font_size: 12
+                bold: True
+            TextInput:
+                multiline: False
+                size_hint_y: None
+                height: 30
+            Label:
+                text: 'PASSWORD'
+                font_size: 12
+                bold: True
+            TextInput:
+                multiline: False
+                password: True
+                size_hint_y: None
+                height: 30
+        BeforeButton:
+            text: 'SIGN IN'
+            on_release: 
+                app.root.transition.duration = 0.2
+                app.root.current = 'index_screen'
+        BeforeButton:
+            text: 'SIGN UP'
+            on_release:
+                app.root.transition.duration = 0.2
+                app.root.current = 'sign_up_screen'
+
+
+<SignUp>:
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 100
+        padding: 50
+        canvas: 
+            Color:
+                rgba: .1,.1,.1,1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 5
+            Image:
+                source: 'images/logo/flyer_logo.png'
+                size_hint_y: None
+                height: 200
+            Label:
+                text: 'E-MAIL'
+                font_size: 12
+                bold: True
+            TextInput:
+                multiline: False
+                size_hint_y: None
+                height: 30
+            Label:
+                text: 'PASSWORD'
+                font_size: 12
+                bold: True
+            TextInput:
+                multiline: False
+                password: True
+                size_hint_y: None
+                height: 30
+            Label:
+                text: 'CONFIRM PASSWORD'
+                font_size: 12
+                bold: True
+            TextInput:
+                multiline: False
+                password: True
+                size_hint_y: None
+                height: 30
+        BeforeButton:
+            text: 'REGISTER'
+            on_release: 
+                app.root.transition.duration = 0.2
+                app.root.current = 'validation_screen'
+
+
+<Validation>:
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 150
+        padding: 50
+        canvas: 
+            Color:
+                rgba: .1,.1,.1,1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        BoxLayout:
+            orientation: 'vertical'
+            Image:
+                source: 'images/logo/flyer_logo.png'
+                size_hint_y: None
+                height: 200
+            Label:
+                text: 'INSERT CODE'
+                font_size: 12
+                bold: True
+            TextInput:
+                multiline: False
+                size_hint_y: None
+                height: 30
+        BeforeButton:
+            text: 'VALIDATE'
+            on_release: 
+                app.root.transition.duration = 0.2
+                app.root.current = 'sign_in_screen'
+
+#   BUTTON FOR LOG_IN SCREENS
+
+<BeforeButton@Button>:
+    bold: True
+    size_hint_y: None
+    height: 50
+    background_color: [0, 0, 10, 1]
+
+#   INDEX SCREEN - MAIN USE
+<FlyerIndex>:
+    BoxLayout:
+        id: index
+        orientation: 'vertical'
+        ActionBar:
+           id: header
+           ActionView:
+               ActionPrevious:
+                    spacing: 30
+                    padding: 5
+                    title: 'Flyer'
+                    with_previous: False
+                    app_icon: 'images/logo/flyer_logo.png'
+                    on_release: app.root.current = 'index_screen'
+                    app_icon_width: 40
+                    app_icon_height: 40
+                    background_color: [.1,.1,.1,1]
+                    ActionButton:
+                        icon: 'images/icons/round_map_white_36.png'
+                    ActionButton:
+                        icon: 'images/icons/round_list_white_36.png'
+                    ActionButton:
+                        icon: 'images/icons/round_search_white_36.png'
+        FlyerContainer:
+            id: main_container
+
+        BoxLayout:
+            id: footer
+            canvas:
+                Color:
+                    rgba: (.12,.12,.12,1)
+                Rectangle:
+                    size: self.size
+                    pos:self.pos
+            spacing: 85
+            padding: 10
+            size_hint_y: None
+            height: 45
+            FooterButton:
+                background_normal:'images/icons/round_home_white_36.png'
+            FooterButton:
+                background_normal: 'images/icons/round_sell_white_36.png'          
+            FooterButton:
+                background_normal: 'images/icons/round_favorite_white_36.png'
+            FooterButton:
+                background_normal: 'images/icons/round_settings_white_36.png'
+
+
+#   BUTTONS FOR FOOTER BAR
+
+<FooterButton@Button>:
+    size_hint_x: None
+    width: self.height
+    border: (0,0,0,0)
+
+#   CONTAINERS
+<FlyerMap>:
+    BoxLayout:
+        orientation: 'vertical'
+        MapView:
+            id: mapflyers
+            lat:  -23.550277777778 
+            lon:  -46.633888888889 
+            zoom: 16
+            MapMarkerPopup:
+                source: 'images/icons/marker_icon.png'
+                lat:  -23.550277777778
+                lon:  -46.633888888889
+                size_hint_y: None
+                height: self.width * 0.7
+
+<FlyerList>:
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 10
+        size_hint_y: None
+        height: 200
+        Image:
+            size_hint_y: None
+            height: 150
+        BoxLayout:
+            Label:
+                text: 'NOME CADASTRADO'
+                font_size: 10
+            Label:
+                text: '10km'
+                font_size: 10
+        Label:
+            text: 'ENDEREÇO CADASTRADO'
+            font_size: 10
+
+<FlyerSearch>:
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: 'Search Page'
+
+<FlyerHome>:
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: 'Home Page'
+
+<FlyerPromo>:
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: 'Promo Page'
+        ActionBar:
+
+<FlyerFav>:
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: 'Favorite Page'
+        ActionBar:
+
+<FlyerSettings>:
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: 'Settings Page'

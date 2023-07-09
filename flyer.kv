@@ -2,208 +2,100 @@
 #:import MapView kivy.garden.mapview.MapView
 
 #   Main Screen Manager
-<FlyerManager>:
-    SignIn:
-        name: 'sign_in_screen'
-    SignUp:
-        name: 'sign_up_screen'
-    Validation:
-        name: 'validation_screen'
-    FlyerIndex:
-        name: 'index_screen'
-
-#  SCREENS FOR LOG_IN
-
-<SignIn>:
-    BoxLayout:
-        orientation: 'vertical'
-        spacing: 70
-        padding: 50
-        canvas: 
-            Color:
-                rgba: .1,.1,.1,1
-            Rectangle:
-                size: self.size
-                pos: self.pos
-        BoxLayout:
-            orientation: 'vertical'
-            Image:
-                source: 'images/logo/flyer_logo.png'
-                size_hint_y: None
-                height: 200
-            Label:
-                text: 'E-MAIL'
-                font_size: 12
-                bold: True
-            TextInput:
-                multiline: False
-                size_hint_y: None
-                height: 30
-            Label:
-                text: 'PASSWORD'
-                font_size: 12
-                bold: True
-            TextInput:
-                multiline: False
-                password: True
-                size_hint_y: None
-                height: 30
-        BeforeButton:
-            text: 'SIGN IN'
-            on_release: app.root.current = 'index_screen'
-        BeforeButton:
-            text: 'SIGN UP'
-            on_release: app.root.current = 'sign_up_screen'
-
-
-<SignUp>:
-    BoxLayout:
-        orientation: 'vertical'
-        spacing: 100
-        padding: 50
-        canvas: 
-            Color:
-                rgba: .1,.1,.1,1
-            Rectangle:
-                size: self.size
-                pos: self.pos
-        BoxLayout:
-            orientation: 'vertical'
-            spacing: 5
-            Image:
-                source: 'images/logo/flyer_logo.png'
-                size_hint_y: None
-                height: 200
-            Label:
-                text: 'E-MAIL'
-                font_size: 12
-                bold: True
-            TextInput:
-                multiline: False
-                size_hint_y: None
-                height: 30
-            Label:
-                text: 'PASSWORD'
-                font_size: 12
-                bold: True
-            TextInput:
-                multiline: False
-                password: True
-                size_hint_y: None
-                height: 30
-            Label:
-                text: 'CONFIRM PASSWORD'
-                font_size: 12
-                bold: True
-            TextInput:
-                multiline: False
-                password: True
-                size_hint_y: None
-                height: 30
-        BeforeButton:
-            text: 'REGISTER'
-            on_release: app.root.current = 'validation_screen'
-
-
-<Validation>:
-    BoxLayout:
-        orientation: 'vertical'
-        spacing: 150
-        padding: 50
-        canvas: 
-            Color:
-                rgba: .1,.1,.1,1
-            Rectangle:
-                size: self.size
-                pos: self.pos
-        BoxLayout:
-            orientation: 'vertical'
-            Image:
-                source: 'images/logo/flyer_logo.png'
-                size_hint_y: None
-                height: 200
-            Label:
-                text: 'INSERT CODE'
-                font_size: 12
-                bold: True
-            TextInput:
-                multiline: False
-                size_hint_y: None
-                height: 30
-        BeforeButton:
-            text: 'VALIDATE'
-            on_release: app.root.current = 'sign_in_screen'
-
-
-#   BUTTON FOR LOG_IN SCREENS
-
-<BeforeButton@Button>:
-    bold: True
-    size_hint_y: None
-    height: 50
-    background_color: [0, 0, 10, 1]
-
-#   INDEX SCREEN - MAIN USE
-
 <FlyerIndex>:
+    id: main_index
+    orientation: 'vertical'
     BoxLayout:
         orientation: 'vertical'
-        ActionBar:
-            index: 0
-            ActionView:
-                ActionPrevious:
-                    spacing: 30
-                    padding: 5
-                    title: 'Flyer'
-                    with_previous: False
-                    app_icon: 'images/logo/flyer_logo.png'
-                    on_release: app.root.current = 'index_screen'
-                    app_icon_width: 40
-                    app_icon_height: 40
-                    background_color: [.1,.1,.1,1]
-                    ActionButton:
-                        icon: 'images/icons/round_map_white_36.png'
-                        on_release: root.changeLayout()
-                    ActionButton:
-                        icon: 'images/icons/round_list_white_36.png'
-                    ActionButton:
-                        icon: 'images/icons/round_search_white_36.png'
-        Widget:
-            id: 'main'
+        MainHeader:
+            id: header
+        FlyerManager:
+            id: main_container
+            size: self.width, self.height
+            FlyerMap:
+                name: 'map_flyer'
+            FlyerList:
+                name: 'list_flyer'
+            FlyerSearch:
+                name: 'search_flyer'
+            FlyerHome:
+                name: 'home_flyer'
+            FlyerPromo:
+                name: 'promo_flyer'
+            FlyerFav:
+                name: 'fav_flyer'
+            FlyerSettings:
+                name: 'settings_flyer'
+        MainFooter:
+            id: footer
 
-        BoxLayout:
-            canvas:
-                Color:
-                    rgba: (.15,.15,.15,1)
-                Rectangle:
-                    size: self.size
-                    pos:self.pos
-            spacing: 85
-            padding: 10
-            size_hint_y: None
-            height: 45
-            FooterButton:
-                background_normal:'images/icons/round_home_white_36.png'
-            FooterButton:
-                background_normal: 'images/icons/round_sell_white_36.png'
-            FooterButton:
-                background_normal: 'images/icons/round_favorite_white_36.png'
-            FooterButton:
-                background_normal: 'images/icons/round_settings_white_36.png'
+#   HEADER ACTION BAR
+<MainHeader@ActionBar>:
+    ActionView:
+        ActionPrevious:
+            spacing: 30
+            padding: 5
+            title: 'Flyer'
+            with_previous: False
+            app_icon: 'images/logo/flyer_logo.png'
+            on_release: app.root.current = 'index_screen'
+            app_icon_width: 40
+            app_icon_height: 40
+            background_color: [.1,.1,.1,1]
+            ActionButton:
+                icon: 'images/icons/round_map_white_36.png'
+                on_release:
+                    app.root.ids.main_container.current = 'map_flyer'
+            ActionButton:
+                icon: 'images/icons/round_list_white_36.png'
+                on_release:
+                    app.root.ids.main_container.current = 'list_flyer'
+            ActionButton:
+                icon: 'images/icons/round_search_white_36.png'
+                on_release:
+                    app.root.ids.main_container.current = 'search_flyer'
 
+#   FOOTER BAR
+<MainFooter@BoxLayout>:
+    canvas:
+        Color:
+            rgba: (.12,.12,.12,1)
+        Rectangle:
+            size: self.size
+            pos:self.pos
+    spacing: 85
+    padding: 10
+    size_hint_y: None
+    height: 45
+    FooterButton:
+        background_normal:'images/icons/round_home_white_36.png'
+        on_release:
+            app.root.ids.main_container.current = 'home_flyer'
+    FooterButton:
+        background_normal: 'images/icons/round_sell_white_36.png'
+        on_release:
+            app.root.ids.main_container.current = 'promo_flyer'        
+    FooterButton:
+        background_normal: 'images/icons/round_favorite_white_36.png'
+        on_release:
+            app.root.ids.main_container.current = 'fav_flyer'
+    FooterButton:
+        background_normal: 'images/icons/round_settings_white_36.png'
+        on_release:
+            app.root.ids.main_container.current = 'settings_flyer'
+
+#   BUTTONS FOR FOOTER BAR
 <FooterButton@Button>:
     size_hint_x: None
     width: self.height
     border: (0,0,0,0)
 
-###     LAYOUTS 
-
+#   CONTAINERS
 <FlyerMap>:
-    id: 'mapflyer'
     BoxLayout:
         orientation: 'vertical'
         MapView:
-            id: 'mapflyer'
+            id: mapflyers
             lat:  -23.550277777778 
             lon:  -46.633888888889 
             zoom: 16
@@ -211,13 +103,28 @@
                 source: 'images/icons/marker_icon.png'
                 lat:  -23.550277777778
                 lon:  -46.633888888889
+                size_hint_y: None
+                height: self.width * 0.7
 
 <FlyerList>:
     BoxLayout:
         orientation: 'vertical'
+        spacing: 10
+        size_hint_y: None
+        height: 200
+        Image:
+            size_hint_y: None
+            height: 150
+        BoxLayout:
+            Label:
+                text: 'NOME CADASTRADO'
+                font_size: 10
+            Label:
+                text: '10km'
+                font_size: 10
         Label:
-            text: 'List Page'
-        ActionBar:
+            text: 'ENDEREÇO CADASTRADO'
+            font_size: 10
 
 <FlyerSearch>:
     BoxLayout:
@@ -250,7 +157,3 @@
         orientation: 'vertical'
         Label:
             text: 'Settings Page'
-
-
-
-
