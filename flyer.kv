@@ -63,10 +63,11 @@
         Rectangle:
             size: self.size
             pos:self.pos
-    spacing: 85
+    spacing: 80
     padding: 10
     size_hint_y: None
-    height: 45
+    height: 50
+
     FooterButton:
         background_normal:'images/icons/round_home_white_36.png'
         on_release:
@@ -95,7 +96,7 @@
     BoxLayout:
         orientation: 'vertical'
         MapView:
-            id: mapflyers
+            id: mapflyer
             lat:  -23.550277777778 
             lon:  -46.633888888889 
             zoom: 16
@@ -104,27 +105,70 @@
                 lat:  -23.550277777778
                 lon:  -46.633888888889
                 size_hint_y: None
-                height: self.width * 0.7
+                height: self.width * 0.6
 
 <FlyerList>:
-    BoxLayout:
-        orientation: 'vertical'
-        spacing: 10
-        size_hint_y: None
-        height: 200
-        Image:
-            size_hint_y: None
-            height: 150
+    ScrollView:
         BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: self.minimum_height
+            padding: 5
+            spacing: 20
+            CardFlyer:
+            CardFlyer:
+            CardFlyer:
+            CardFlyer:
+            CardFlyer:
+            CardFlyer:
+
+<CardFlyer@BoxLayout>:
+    orientation: 'vertical'
+    size_hint_y: None
+    height: 250
+    padding: 10
+    canvas:
+        Color:
+            rgba: (.1,.1,.1,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    BoxLayout:
+        size_hint_y: None
+        height: 180
+        Image:
+            padding: 10
+            size_hint_y: None
+            size_hint_x: None
+            height: 180
+            width: 150
+        BoxLayout:
+            orientation: 'vertical'
             Label:
-                text: 'NOME CADASTRADO'
-                font_size: 10
+                text: 'Nome do local'
+                font_size: 16
+                bold: True
+            BoxLayout:
+                Label:
+                    text: '0km'
+                    font_size: 10
+                    bold: True
+                Label:
+                    text: 'Status'
+                    font_size: 10
+                    bold: True
             Label:
-                text: '10km'
-                font_size: 10
-        Label:
-            text: 'ENDEREÇO CADASTRADO'
-            font_size: 10
+                text: 'Seg/Sex de HH:MMh às HH:MM'
+                font_size: 11
+            Label:
+                text: '(00)00000-0000 / (00)00000-0000'
+                font_size: 11
+    Label:
+        text: 'Avenida/Rua do local ou serviço, numero'
+        font_size: 12
+    
+
+
 
 <FlyerSearch>:
     BoxLayout:
