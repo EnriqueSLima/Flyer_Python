@@ -1,10 +1,12 @@
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.label import Label
+
 from kivy.core.window import Window
 
 Window.size = (380, 700)
-
+   
 #   Main Screen
 class FlyerIndex(BoxLayout):
     def __init__(self, **kw):
@@ -30,7 +32,6 @@ class FlyerFav(Screen):
     pass
 class FlyerSettings(Screen):
     pass
-
 # Runs Application
 class Flyer(App):
     def build(self):

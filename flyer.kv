@@ -1,7 +1,8 @@
 #:kivy 1.0.9
 #:import MapView kivy.garden.mapview.MapView
 
-#   Main Screen Manager
+#   MAIN SCREEN MANAGER
+
 <FlyerIndex>:
     id: main_index
     orientation: 'vertical'
@@ -29,11 +30,13 @@
         MainFooter:
             id: footer
 
-#   HEADER ACTION BAR
+#   HEADER  -   ACTION BAR
+
 <MainHeader@ActionBar>:
     ActionView:
         ActionPrevious:
-            spacing: 30
+            id: bar
+            spacing: 20
             padding: 5
             title: 'Flyer'
             with_previous: False
@@ -45,17 +48,22 @@
             ActionButton:
                 icon: 'images/icons/round_map_white_36.png'
                 on_release:
+                    root.ids.bar.title = 'Map'
                     app.root.ids.main_container.current = 'map_flyer'
             ActionButton:
                 icon: 'images/icons/round_list_white_36.png'
                 on_release:
+                    root.ids.bar.title = 'List'
                     app.root.ids.main_container.current = 'list_flyer'
             ActionButton:
+                id: btn_search
                 icon: 'images/icons/round_search_white_36.png'
                 on_release:
+                    root.ids.bar.title = 'Search'
                     app.root.ids.main_container.current = 'search_flyer'
 
-#   FOOTER BAR
+#   FOOTER BAR  -   BOX LAYOUT
+
 <MainFooter@BoxLayout>:
     canvas:
         Color:
@@ -63,35 +71,47 @@
         Rectangle:
             size: self.size
             pos:self.pos
-    spacing: 80
     padding: 10
+    spacing: 80
     size_hint_y: None
     height: 50
 
     FooterButton:
         background_normal:'images/icons/round_home_white_36.png'
         on_release:
+            app.root.ids.header.ids.bar.title = 'Home'
             app.root.ids.main_container.current = 'home_flyer'
+
     FooterButton:
         background_normal: 'images/icons/round_sell_white_36.png'
         on_release:
-            app.root.ids.main_container.current = 'promo_flyer'        
+            app.root.ids.header.ids.bar.title = 'Discount'
+            app.root.ids.main_container.current = 'promo_flyer'
+
     FooterButton:
         background_normal: 'images/icons/round_favorite_white_36.png'
         on_release:
+            app.root.ids.header.ids.bar.title = 'Favorite'
             app.root.ids.main_container.current = 'fav_flyer'
+
     FooterButton:
         background_normal: 'images/icons/round_settings_white_36.png'
         on_release:
+            app.root.ids.header.ids.bar.title = 'Settings'
             app.root.ids.main_container.current = 'settings_flyer'
 
-#   BUTTONS FOR FOOTER BAR
+
+#   BUTTONS -   FOOTER BAR
+
 <FooterButton@Button>:
     size_hint_x: None
     width: self.height
     border: (0,0,0,0)
 
 #   CONTAINERS
+
+#   MAP CONTAINER
+
 <FlyerMap>:
     BoxLayout:
         orientation: 'vertical'
@@ -107,6 +127,8 @@
                 size_hint_y: None
                 height: self.width * 0.6
 
+#   LIST CONTAINER
+
 <FlyerList>:
     ScrollView:
         BoxLayout:
@@ -120,82 +142,173 @@
             CardFlyer:
             CardFlyer:
             CardFlyer:
-            CardFlyer:
+
 
 <CardFlyer@BoxLayout>:
-    orientation: 'vertical'
     size_hint_y: None
     height: 250
-    padding: 10
     canvas:
         Color:
-            rgba: (.1,.1,.1,1)
+            rgba: (0,0,0,1)
         Rectangle:
             size: self.size
             pos: self.pos
     BoxLayout:
+        orientation: 'vertical'
         size_hint_y: None
-        height: 180
-        Image:
-            padding: 10
-            size_hint_y: None
-            size_hint_x: None
-            height: 180
-            width: 150
+        height: 200
+        padding: 10
+        spacing: 10
+        canvas:
+            Color:
+                rgba: (.1,.1,.1,1)
+            Rectangle:
+                size: self.size
+                pos: self.pos
         BoxLayout:
-            orientation: 'vertical'
-            Label:
-                text: 'Nome do local'
-                font_size: 16
-                bold: True
+            size_hint_y: None
+            Image:
+                padding: 10
+                size_hint_y: None
+                size_hint_x: None
+                height: 180
+                width: 150
             BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: 150
+                padding: 10
                 Label:
-                    text: '0km'
+                    text: 'Nome do local'
+                    font_size: 16
+                    bold: True
+                BoxLayout:
+                    Label:
+                        text: '0km'
+                        font_size: 10
+                        bold: True
+                    Label:
+                        text: 'Status'
+                        font_size: 10
+                        bold: True
+                Label:
+                    text: 'Horários:'
                     font_size: 10
                     bold: True
                 Label:
-                    text: 'Status'
+                    text: 'Seg/Sex de HH:MMh às HH:MM'
+                    font_size: 11
+                Label:
+                    text: 'Contatos:'
                     font_size: 10
                     bold: True
-            Label:
-                text: 'Seg/Sex de HH:MMh às HH:MM'
-                font_size: 11
-            Label:
-                text: '(00)00000-0000 / (00)00000-0000'
-                font_size: 11
-    Label:
-        text: 'Avenida/Rua do local ou serviço, numero'
-        font_size: 12
-    
+                Label:
+                    text: '(00)00000-0000 / (00)00000-0000'
+                    font_size: 11
+        Label:
+            size_hint_y: None
+            height: 30
+            text: 'Avenida/Rua do local ou serviço, numero'
+            font_size: 13
+            bold: True
 
-
+#   FILTERS AND SUB-FILTERS CONTAINER
 
 <FlyerSearch>:
+#   With Spinners
     BoxLayout:
+        id: filters_menu
         orientation: 'vertical'
+        padding: 10
         Label:
-            text: 'Search Page'
+            id: label_selected
+            text: 'Selected: filter > subfilter'
+            font_size: 9
+            bold: True
+            size_hint_y: None
+            height: 10
+        BoxLayout:
+            size_hint_y: None
+            height: 40
+            padding: 5
+            TextInput:
+                multiline: False
+                size_hint_x: 1
+                size_hint_y: 1      
+        Spinner:
+            id: subfilters_menu
+            text: 'Filter'
+            size_hint_y: None
+            height: 35
+            values: ('')
+        Label:
+            text: ''
+        Button:
+            id: apply_filters
+            text:'Aplicar'
+            size_hint_y: None
+            height: 50
+            on_release:
+                print(root.ids.subfilters_menu.values)
 
+
+#   PROFILE CONTAINER
 <FlyerHome>:
     BoxLayout:
         orientation: 'vertical'
-        Label:
-            text: 'Home Page'
+        BoxLayout:
+            size_hint_y: 0.4
+            canvas:
+                Color:
+                    rgba: (.1,.1,.1,1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
+            Label:
+                text: 'Dados'
+
+        Label:
+            text: 'Recents'
+        Label:
+            text: ''
+
+#   PROMOTION / DISCOUNTS CONTAINER
 <FlyerPromo>:
     BoxLayout:
         orientation: 'vertical'
-        Label:
-            text: 'Promo Page'
-        ActionBar:
+        BoxLayout:
+            size_hint_y: 0.4
+            canvas:
+                Color:
+                    rgba: (.1,.1,.1,1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
 
+            Label:
+                text: 'Descrição'
+
+        Label:
+            text: 'UploadFlyer'
+        Label:
+            text: ''
+
+# FAVORITE CONTAINER
 <FlyerFav>:
-    BoxLayout:
-        orientation: 'vertical'
-        Label:
-            text: 'Favorite Page'
-        ActionBar:
+    ScrollView:
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: self.minimum_height
+            padding: 5
+            spacing: 20
+            CardFlyer:
+            CardFlyer:
+            CardFlyer:
 
+
+#   SETTINGS CONTAINER
 <FlyerSettings>:
     BoxLayout:
         orientation: 'vertical'
